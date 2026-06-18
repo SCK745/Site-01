@@ -30,6 +30,7 @@
   --t-l:  #3F5E78;
   --t-r:  #243C53;
   --t-rx: #6B5A2A;
+  --t-q:  #8B6F35;
   --t-qx: var(--gold);
 
   /* effects */
@@ -330,7 +331,7 @@ ul { padding: 0; margin: 0; list-style: none; }
 }
 .ladder-rail {
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: 12px;
   counter-reset: rung;
 }
@@ -360,6 +361,7 @@ ul { padding: 0; margin: 0; list-style: none; }
 .rung[data-tier="l"]::before  { background: var(--t-l);  }
 .rung[data-tier="r"]::before  { background: var(--t-r);  }
 .rung[data-tier="rx"]::before { background: var(--t-rx); }
+.rung[data-tier="q"]::before  { background: var(--t-q);  }
 .rung[data-tier="qx"]::before { background: var(--gold); height: 4px; }
 
 .rung:hover {
@@ -504,6 +506,7 @@ ul { padding: 0; margin: 0; list-style: none; }
 .tier-tag-l  { color: var(--t-l);  border-color: var(--t-l);  }
 .tier-tag-r  { color: var(--t-r);  border-color: var(--t-r);  }
 .tier-tag-rx { color: var(--t-rx); border-color: var(--t-rx); }
+.tier-tag-q  { color: var(--t-q);  border-color: var(--t-q);  }
 .tier-tag-qx {
   background: var(--gold);
   color: var(--navy-deep);
@@ -834,7 +837,7 @@ ul { padding: 0; margin: 0; list-style: none; }
    Responsive — small tablet / large phone (≤ 960px)
    ========================================================= */
 @media (max-width: 960px) {
-  .ladder-rail { grid-template-columns: repeat(3, 1fr); }
+  /* ladder grid uses auto-fit; no explicit columns needed */
   .decide-grid { grid-template-columns: 1fr; }
   .decide-card { position: static; }
   .top-nav { gap: 16px; }
@@ -904,8 +907,8 @@ ul { padding: 0; margin: 0; list-style: none; }
   .diff-card { padding: 24px 22px; }
   .diff-list li { font-size: .92rem; }
 
-  /* Ladder rungs: better tap targets, 3-col → 2-col */
-  .ladder-rail { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  /* Ladder rungs: tighter gap, larger tap target — columns auto-flow */
+  .ladder-rail { gap: 10px; }
   .rung { padding: 24px 20px; min-height: 132px; }
   .rung-name { font-size: 1.45rem; }
   .rung-tag { font-size: .76rem; }
@@ -961,8 +964,8 @@ ul { padding: 0; margin: 0; list-style: none; }
   .hero h1 { font-size: clamp(2.1rem, 11vw, 3.2rem); }
   .lede { font-size: .96rem; }
 
-  /* Single-column ladder */
-  .ladder-rail { grid-template-columns: 1fr; gap: 10px; }
+  /* Force single-column ladder so the inline price layout works */
+  .ladder-rail { grid-template-columns: 1fr !important; gap: 10px; }
   .rung { padding: 22px 22px; min-height: 0; flex-direction: row; flex-wrap: wrap; align-items: center; }
   .rung-num { width: 100%; }
   .rung-name { flex: 1; }
